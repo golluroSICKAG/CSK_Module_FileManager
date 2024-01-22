@@ -6,7 +6,7 @@
 local availableAPIs = {}
 
 local function loadAPIs()
-  CSK_ModuleName = require 'API.CSK_ModuleName'
+  CSK_FileManager = require 'API.CSK_FileManager'
 
   Container = require 'API.Container'
   Engine = require 'API.Engine'

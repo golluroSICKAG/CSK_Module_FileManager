@@ -2,95 +2,134 @@
 	<layout-column id="ColumnLayout1" style="align-items:stretch">
 		<stacked-view id="SV_Login">
 			<stacked-pane id="SP_LoginOK" value="true">
-				<layout-column id="Column_PersistentData"
-					class="myCustomFrame_CSK_Module_FileManager"
-					style="align-items: stretch">
-					<layout-row id="RowLayout4"
-						style="justify-content: space-between; align-items: center">
-						<layout-column id="ColumnLayout5" style="align-items: stretch">
-							<davinci-value-display id="VD_ParameterName" value="Parameter name:"
-								title="Name of the parameters within the CSK_PersistentData module to be uses for this module.">
-							</davinci-value-display>
-						</layout-column>
-						<layout-column id="ColumnLayout6" style="align-items: stretch">
-							<davinci-text-field id="TF_ParameterName" type="text"
-								title="Name of the parameters within the CSK_PersistentData module to be uses for this module.">
-								<crown-edpws-binding property="value"
-									name="CSK_FileManager/OnNewParameterName" update-on-resume>
-								</crown-edpws-binding>
-								<crown-binding event="change" name="CSK_FileManager/setParameterName"
-									path="param/args/name" auto-commit>
-								</crown-binding>
-								<crown-edpws-binding property="disabled"
-									name="CSK_FileManager/OnPersistentDataModuleAvailable"
-									update-on-resume converter="function(value) {return !value;}">
-								</crown-edpws-binding>
-							</davinci-text-field>
-						</layout-column>
-					</layout-row>
-					<layout-row id="RowLayout2"
-						style="justify-content: space-between; align-items: center">
-						<davinci-value-display id="VD_LoadConfig"
-							value="Load config on app start:"
-							title="Load configured parameters from CSK_PersistentData on app start.">
-						</davinci-value-display>
-						<davinci-checkbox id="CB_LoadConfig"
-							title="Load configured parameters from CSK_PersistentData on app start.">
-							<span></span>
-							<crown-edpws-binding property="checked"
-								name="CSK_FileManager/OnNewStatusLoadParameterOnReboot"
-								update-on-resume>
+				<layout-row id="RowLayout5">
+					<layout-column id="ColumnLayout7" style="align-items: stretch">
+						<layout-row id="RowLayout2"
+							class="myCustomFrame_CSK_Module_FileManager">
+							<layout-column id="ColumnLayout2" style="align-items: stretch">
+								<layout-row id="RowLayout4" style="justify-content: flex-end">
+									<davinci-value-display id="VD_FreeUsedSpace">
+										<crown-edpws-binding property="value"
+											name="CSK_FileManager/OnNewStatusDiskInfo" update-on-resume>
+										</crown-edpws-binding>
+									</davinci-value-display>
+								</layout-row>
+								<davinci-drop-down id="DD_FileSource" label="File source:">
+									<crown-edpws-binding property="data"
+										name="CSK_FileManager/OnNewStatusAvailableSources"
+										update-on-resume converter="convertToList">
+									</crown-edpws-binding>
+									<crown-edpws-binding property="value"
+										name="CSK_FileManager/OnNewStatusSelectedSource" update-on-resume>
+									</crown-edpws-binding>
+									<crown-binding event="change" name="CSK_FileManager/selectFileSource"
+										path="param/args/source" auto-commit>
+									</crown-binding>
+								</davinci-drop-down>
+								<davinci-drop-down id="DD_FileList" label="Select file:"
+									title="Info: Empty folders are not listed.">
+									<crown-edpws-binding property="data"
+										name="CSK_FileManager/OnNewStatusFileList" update-on-resume
+										converter="convertToList">
+									</crown-edpws-binding>
+									<crown-edpws-binding property="value"
+										name="CSK_FileManager/OnNewStatusSelectedFile" update-on-resume>
+									</crown-edpws-binding>
+									<crown-binding event="change" name="CSK_FileManager/selectFile"
+										path="param/args/filename" auto-commit>
+									</crown-binding>
+								</davinci-drop-down>
+								<davinci-button id="Button_Delete" type="accent"
+									icon-position="append" title="Delete selected file.">
+									<span>Delete file</span>
+									<crown-binding event="submit" name="CSK_FileManager/deleteFile"
+										auto-commit>
+									</crown-binding>
+								</davinci-button>
+								<appspace-file-download-button id="FileDownloadButton1" type="primary"
+									icon-position="append" downloaded-filename="file.tmp"
+									title="Download selected file to PC.">
+									<span>Download file</span>
+									<crown-on property="file-path"
+										crown-event="CSK_FileManager/OnNewStatusFileToDownload">
+									</crown-on>
+									<crown-on property="downloaded-filename"
+										crown-event="CSK_FileManager/OnNewStatusDownloadFilename">
+									</crown-on>
+								</appspace-file-download-button>
+							</layout-column>
+						</layout-row>
+						<layout-row id="RowLayout3"
+							class="myCustomFrame_CSK_Module_FileManager">
+							<layout-column id="ColumnLayout3" style="align-items: stretch">
+								<davinci-text-field id="TF_Path" type="text" label="Path:"
+									title="Set path for creating / deleting / uploading files.">
+									<crown-on property="value"
+										crown-event="CSK_FileManager/OnNewStatusPath">
+									</crown-on>
+									<crown-binding event="change" name="CSK_FileManager/setPath"
+										path="param/args/path" auto-commit>
+									</crown-binding>
+								</davinci-text-field>
+								<davinci-button id="Button_Create" type="primary"
+									icon-position="append"
+									title="Create folder like preset in 'Path'.">
+									<span>Create folder</span>
+									<crown-binding event="submit" name="CSK_FileManager/createFolder"
+										auto-commit>
+									</crown-binding>
+								</davinci-button>
+								<davinci-button id="Button_DeleteFolder" type="accent"
+									icon-position="append"
+									title="Delete folder including all subfolders / subfiles.">
+									<span>Delete folder</span>
+									<crown-binding event="submit" name="CSK_FileManager/deleteFolder"
+										auto-commit>
+									</crown-binding>
+								</davinci-button>
+								<appspace-file-upload-button id="FileUploadButton"
+									button-type="primary"
+									title="Make sure that the target path already exists.">
+									<span>Upload file</span>
+									<crown-on property="path"
+										crown-event="CSK_FileManager/OnNewStatusPath">
+									</crown-on>
+									<crown-set event="finished"
+										crown-function="CSK_FileManager/fileUploadFinished"
+										protocol="crownMSGPACK" crown-path="status">
+									</crown-set>
+								</appspace-file-upload-button>
+							</layout-column>
+						</layout-row>
+						<stacked-view id="SV_InfoMsg">
+							<stacked-pane id="SP_infos" value="true">
+								<curie-callout id="DC_InfoMsg">
+									<crown-edpws-binding property="value"
+										name="CSK_FileManager/OnNewStatusCalloutText" update-on-resume>
+									</crown-edpws-binding>
+									<crown-edpws-binding property="type"
+										name="CSK_FileManager/OnNewStatusCalloutType" update-on-resume>
+									</crown-edpws-binding>
+								</curie-callout>
+							</stacked-pane>
+							<stacked-pane id="SP_empty" value="false"></stacked-pane>
+							<crown-edpws-binding property="value"
+								name="CSK_FileManager/OnNewStatusShowCallout" update-on-resume
+								converter="function(value) {return value.toString();}">
 							</crown-edpws-binding>
-							<crown-edpws-binding property="disabled"
-								name="CSK_FileManager/OnPersistentDataModuleAvailable"
-								update-on-resume converter="function(value) {return !value;}">
-							</crown-edpws-binding>
-							<crown-binding event="change" name="CSK_FileManager/setLoadOnReboot"
-								path="param/args/status" auto-commit>
-							</crown-binding>
-						</davinci-checkbox>
-					</layout-row>
-					<layout-row id="RowLayout3">
-						<layout-column id="ColumnLayout3" style="align-items: stretch">
-							<davinci-button id="B_LoadConfig" type="primary"
-								icon-position="append"
-								title="Load configured parameters from CSK_PersistentData module.">
-								<span>Load Config</span>
-								<crown-binding event="submit" name="CSK_FileManager/loadParameters"
-									auto-commit>
-								</crown-binding>
-								<crown-edpws-binding property="disabled"
-									name="CSK_FileManager/OnPersistentDataModuleAvailable"
-									update-on-resume converter="function(value) {return !value;}">
-								</crown-edpws-binding>
-							</davinci-button>
-						</layout-column>
-						<layout-column id="ColumnLayout4" style="align-items: stretch">
-							<davinci-button id="B_SaveConfig" type="primary"
-								icon-position="append"
-								title="Save current configured parameters of this module within CSK_PersistentData module.">
-								<span>Save Config</span>
-								<crown-binding event="submit" name="CSK_FileManager/sendParameters"
-									auto-commit>
-								</crown-binding>
-								<crown-edpws-binding property="disabled"
-									name="CSK_FileManager/OnPersistentDataModuleAvailable"
-									update-on-resume converter="function(value) {return !value;}">
-								</crown-edpws-binding>
-							</davinci-button>
-						</layout-column>
-					</layout-row>
-				</layout-column>
+						</stacked-view>
+					</layout-column>
+				</layout-row>
 			</stacked-pane>
 			<stacked-pane id="SP_LoginNotOK" value="false">
 				<davinci-callout id="Callout1" type="info">
 					<span>
-						Please log in via CSK_UserManagement module (at least via user level "Operator")
+						Please log in via CSK_UserManagement module (at least via user level &quot;Service&quot;)
 					</span>
 				</davinci-callout>
 			</stacked-pane>
 			<crown-edpws-binding property="value"
-				name="CSK_FileManager/OnUserLevelOperatorActive" update-on-resume
+				name="CSK_FileManager/OnUserLevelServiceActive" update-on-resume
 				converter="function(value) {return value.toString();}">
 			</crown-edpws-binding>
 		</stacked-view>
@@ -100,7 +139,8 @@
 			</crown-binding>
 		</stacked-view>
 	</layout-column>
-	<layout-column id="ColumnLayout2" style="flex-grow:3">
+	<layout-column id="ColumnLayout4"
+		style="align-items: stretch; flex-grow: 2">
 	</layout-column>
   
 </layout-row>

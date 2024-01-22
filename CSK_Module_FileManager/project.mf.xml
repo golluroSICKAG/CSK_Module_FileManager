@@ -6,15 +6,8 @@
         </crown>
         <crown name="CSK_FileManager">
             <trait>released</trait>
-            <desc>Please fill in information regarding: What is the idea of this module and its features? +
-How to use this module in general.... like: + 
-{empty} + 
-Typically the features of this module are used like this (check also main script of this module): +
-**1) Setup** +
-ToDo +
-{empty} + 
-**2) Something else...** +
-</desc>
+            <desc>Module to provide device file management functionalities like creating / removing folders, downloading / uploading files. +
+Please check the UI of this module. +</desc>
             <serves>
                 <event name="OnNewStatusLoadParameterOnReboot">
                     <desc>Notify status if parameters should be loaded on app/device boot up.</desc>
@@ -47,6 +40,50 @@ ToDo +
                     <desc>Status of Admin userlevel. Used internally in combination with the CSK_UserManagement module if available.</desc>
                     <param desc="Status" multiplicity="1" name="status" type="bool"/>
                 </event>
+                <event name="OnNewStatusFileList">
+                    <desc>Notify list of available files.</desc>
+                    <param desc="List of files." multiplicity="1" name="list" type="string"/>
+                </event>
+                <event name="OnNewStatusSelectedFile">
+                    <desc>Notify name of file selected within list of files.</desc>
+                    <param desc="Name of file." multiplicity="1" name="filename" type="string"/>
+                </event>
+                <event name="OnNewStatusAvailableSources">
+                    <desc>Notify available file sources.</desc>
+                    <param desc="List of sources." multiplicity="1" name="sources" type="string"/>
+                </event>
+                <event name="OnNewStatusSelectedSource">
+                    <desc>Notify selected file source.</desc>
+                    <param desc="Source" multiplicity="1" name="source" type="string"/>
+                </event>
+                <event name="OnNewStatusDownloadFilename">
+                    <desc>Notify name for file to download.</desc>
+                    <param desc="Name of file." multiplicity="1" name="filename" type="string"/>
+                </event>
+                <event name="OnNewStatusFileToDownload">
+                    <desc>Notify full path to file to download.</desc>
+                    <param desc="Path" multiplicity="1" name="path" type="string"/>
+                </event>
+                <event name="OnNewStatusPath">
+                    <desc>Notify path to e.g. store uploaded file to, create new / remove folder.</desc>
+                    <param desc="Path" multiplicity="1" name="path" type="string"/>
+                </event>
+                <event name="OnNewStatusCalloutText">
+                    <desc>Notify text for UI callout.</desc>
+                    <param desc="Text" multiplicity="1" name="text" type="string"/>
+                </event>
+                <event name="OnNewStatusCalloutType">
+                    <desc>Notify type of UI callout.</desc>
+                    <param desc="Type" multiplicity="1" name="type" type="string"/>
+                </event>
+                <event name="OnNewStatusShowCallout">
+                    <desc>Notify status if UI callout should be shown.</desc>
+                    <param desc="Status" multiplicity="1" name="status" type="bool"/>
+                </event>
+                <event name="OnNewStatusDiskInfo">
+                    <desc>Notify free / used space of the selected file source.</desc>
+                    <param desc="Info" multiplicity="1" name="info" type="string"/>
+                </event>
                 <function name="setParameterName">
                     <desc>Function to set the name of the parameters if saved/loaded via the CSK_PersistentData module.</desc>
                     <param desc="Name of the parameter." multiplicity="1" name="name" type="string"/>
@@ -65,10 +102,35 @@ ToDo +
                     <desc>Function to register "OnResume" of the module UI (only as helper function).</desc>
                     <return desc="Empty string (only needed to simplify binding)." multiplicity="1" name="empty" type="string"/>
                 </function>
+                <function name="selectFile">
+                    <desc>Function to select file out of list of files.</desc>
+                    <param desc="Full name of selected file (incl. path to it)." multiplicity="1" name="filename" type="string"/>
+                </function>
+                <function name="selectFileSource">
+                    <desc>Function to select source of files.</desc>
+                    <param desc="Source of files (e.g. '/public', '/ram')." multiplicity="1" name="source" type="string"/>
+                </function>
+                <function name="setPath">
+                    <desc>Function to set path to e.g. store uploaded file to, create new / remove folder.</desc>
+                    <param desc="Path" multiplicity="1" name="path" type="string"/>
+                </function>
+                <function name="fileUploadFinished">
+                    <desc>Function to react on file upload (used to give feedback for upload process).</desc>
+                    <param desc="Status" multiplicity="1" name="status" type="bool"/>
+                </function>
+                <function name="deleteFile">
+                    <desc>Function to delete selected file (see 'selectFile').</desc>
+                </function>
+                <function name="createFolder">
+                    <desc>Function to create new folder at set location (see 'setPath').</desc>
+                </function>
+                <function name="deleteFolder">
+                    <desc>Function to delete set folder (see 'setPath').</desc>
+                </function>
             </serves>
         </crown>
         <meta key="author">SICK AG</meta>
-        <meta key="version">0.1.0</meta>
+        <meta key="version">1.0.0</meta>
         <meta key="priority">low</meta>
         <meta key="copy-protected">false</meta>
         <meta key="read-protected">false</meta>
