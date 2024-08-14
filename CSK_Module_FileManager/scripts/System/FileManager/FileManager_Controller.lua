@@ -25,6 +25,10 @@ tmrCalloutVisible:setPeriodic(false)
 
 -- ************************ UI Events Start ********************************
 
+Script.serveEvent('CSK_FileManager.OnNewStatusModuleVersion', 'FileManager_OnNewStatusModuleVersion')
+Script.serveEvent('CSK_FileManager.OnNewStatusCSKStyle', 'FileManager_OnNewStatusCSKStyle')
+Script.serveEvent('CSK_FileManager.OnNewStatusModuleIsActive', 'FileManager_OnNewStatusModuleIsActive')
+
 Script.serveEvent('CSK_FileManager.OnNewStatusShowCallout', 'FileManager_OnNewStatusShowCallout')
 Script.serveEvent('CSK_FileManager.OnNewStatusCalloutText', 'FileManager_OnNewStatusCalloutText')
 Script.serveEvent('CSK_FileManager.OnNewStatusCalloutType', 'FileManager_OnNewStatusCalloutType')
@@ -127,10 +131,13 @@ local function handleOnExpiredTmrFileManager()
   updateUserLevel()
 
   Script.notifyEvent("FileManager_OnNewStatusShowCallout", false)
+  Script.notifyEvent("FileManager_OnNewStatusModuleVersion", 'v' .. fileManager_Model.version)
+  Script.notifyEvent("FileManager_OnNewStatusCSKStyle", fileManager_Model.styleForUI)
+  Script.notifyEvent("FileManager_OnNewStatusModuleIsActive", _G.availableAPIs.default)
 
   local memoryDividerFree, memoryUnitFree  = fileManager_Model.getValueDividerAndUnit(fileManager_Model.freeBytes)
   local memoryDividerUsed, memoryUnitUsed  = fileManager_Model.getValueDividerAndUnit(fileManager_Model.usedBytes)
-  Script.notifyEvent("FileManager_OnNewStatusDiskInfo", "Disk free = " .. string.format("%.2f", (fileManager_Model.freeBytes/memoryDividerFree)) .. memoryUnitFree .. " / Disk usage = " .. string.format("%.2f", (fileManager_Model.freeBytes/memoryDividerFree)) .. memoryUnitUsed)
+  Script.notifyEvent("FileManager_OnNewStatusDiskInfo", "Disk free = " .. string.format("%.2f", (fileManager_Model.freeBytes/memoryDividerFree)) .. memoryUnitFree .. " / Disk usage = " .. string.format("%.2f", (fileManager_Model.usedBytes/memoryDividerUsed)) .. memoryUnitUsed)
 
   Script.notifyEvent("FileManager_OnNewStatusAvailableSources", fileManager_Model.helperFuncs.createStringListBySimpleTable(fileManager_Model.availableSources))
   Script.notifyEvent("FileManager_OnNewStatusSelectedSource", fileManager_Model.selectedFileSource)
@@ -298,24 +305,33 @@ local function deleteFolder()
 end
 Script.serveFunction('CSK_FileManager.deleteFolder', deleteFolder)
 
+local function getStatusModuleActive()
+  return _G.availableAPIs.default
+end
+Script.serveFunction('CSK_FileManager.getStatusModuleActive', getStatusModuleActive)
+
 -- *****************************************************************
 -- Following function can be adapted for CSK_PersistentData module usage
 -- *****************************************************************
 
 local function setParameterName(name)
-  _G.logger:info(nameOfModule .. ": Set parameter name: " .. tostring(name))
+  _G.logger:fine(nameOfModule .. ": Set parameter name: " .. tostring(name))
   fileManager_Model.parametersName = name
 end
 Script.serveFunction("CSK_FileManager.setParameterName", setParameterName)
 
-local function sendParameters()
-  if fileManager_Model.persistentModuleAvailable then
-    CSK_PersistentData.addParameter(fileManager_Model.helperFuncs.convertTable2Container(fileManager_Model.parameters), fileManager_Model.parametersName)
-    CSK_PersistentData.setModuleParameterName(nameOfModule, fileManager_Model.parametersName, fileManager_Model.parameterLoadOnReboot)
-    _G.logger:info(nameOfModule .. ": Send FileManager parameters with name '" .. fileManager_Model.parametersName .. "' to CSK_PersistentData module.")
-    CSK_PersistentData.saveData()
-  else
-    _G.logger:warning(nameOfModule .. ": CSK_PersistentData module not available.")
+local function sendParameters(noDataSave)
+  if fileManager_Model.parameters then
+    if fileManager_Model.persistentModuleAvailable then
+      CSK_PersistentData.addParameter(fileManager_Model.helperFuncs.convertTable2Container(fileManager_Model.parameters), fileManager_Model.parametersName)
+      CSK_PersistentData.setModuleParameterName(nameOfModule, fileManager_Model.parametersName, fileManager_Model.parameterLoadOnReboot)
+      _G.logger:fine(nameOfModule .. ": Send FileManager parameters with name '" .. fileManager_Model.parametersName .. "' to CSK_PersistentData module.")
+      if not noDataSave then
+        CSK_PersistentData.saveData()
+      end
+    else
+      _G.logger:warning(nameOfModule .. ": CSK_PersistentData module not available.")
+    end
   end
 end
 Script.serveFunction("CSK_FileManager.sendParameters", sendParameters)
@@ -331,18 +347,21 @@ local function loadParameters()
       -- ...
 
       CSK_FileManager.pageCalled()
+      return true
     else
       _G.logger:warning(nameOfModule .. ": Loading parameters from CSK_PersistentData module did not work.")
+      return false
     end
   else
     _G.logger:warning(nameOfModule .. ": CSK_PersistentData module not available.")
+    return false
   end
 end
 Script.serveFunction("CSK_FileManager.loadParameters", loadParameters)
 
 local function setLoadOnReboot(status)
   fileManager_Model.parameterLoadOnReboot = status
-  _G.logger:info(nameOfModule .. ": Set new status to load setting on reboot: " .. tostring(status))
+  _G.logger:fine(nameOfModule .. ": Set new status to load setting on reboot: " .. tostring(status))
 end
 Script.serveFunction("CSK_FileManager.setLoadOnReboot", setLoadOnReboot)
 

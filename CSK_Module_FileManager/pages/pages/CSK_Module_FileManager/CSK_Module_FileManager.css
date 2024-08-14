@@ -1,9 +1,43 @@
-.myCustomFrame_CSK_Module_FileManager {
-  border-style: solid;
-  border-width: 1px;
-  border-color: grey;
+.myCustomFrameNoColor_CSK_Module_FileManager {
   margin: 6px;
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 0px;
+  border-color: 007CC1;
+  background-color: white;
 }
 
-.myCustomCssClass_CSK_Module_FileManager {
+.myCustomSpacerVert20_CSK_Module_FileManager {
+  min-height: 20px;
+}
+
+.myCustomFrame_CSK_Module_FileManager {
+  margin: 6px;
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #007CC1;
+  background-color: white;
+}
+
+.myCustomLabel_CSK_Module_FileManager {
+  font-size:30px;
+  color: grey;
+  margin-top: 10px;
+}
+
+.myCustomFrameLabel_CSK_Module_FileManager {
+  background: white;
+  position:relative;
+  top: calc(-1.2rem);
+  left: calc(1rem);
+  font-size: medium;
+}
+
+.myCustomBackground_CSK_Module_FileManager {
+}
+
+.myCustomButton_CSK_Module_FileManager {
+  border-radius: 30px;
+  padding-right: 0px;
 }

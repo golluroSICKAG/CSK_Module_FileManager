@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.12">
 <meta name="author" content="SICK AG">
-<title>Documentation - CSK_Module_FileManager 1.0.0</title>
+<title>Documentation - CSK_Module_FileManager 1.1.0</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
 /* Stylesheet for CodeRay to match GitHub theme | MIT License | http://foundation.zurb.com */
@@ -615,11 +615,11 @@ h1,h2,h3,h4,h5,h6{color:#007cc1}
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>Documentation - CSK_Module_FileManager 1.0.0</h1>
+<h1>Documentation - CSK_Module_FileManager 1.1.0</h1>
 <div class="details">
 <span id="author" class="author">SICK AG</span><br>
-<span id="revnumber">version 1.0.0,</span>
-<span id="revdate">2023-10-19</span>
+<span id="revnumber">version 1.1.0,</span>
+<span id="revdate">2024-07-31</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -637,6 +637,7 @@ h1,h2,h3,h4,h5,h6{color:#007cc1}
 <li><a href="#API:Function:CSK_FileManager.deleteFile"><span class="breadcrumb">CSK_FileManager.</span><span class="api-function">deleteFile()</span></a></li>
 <li><a href="#API:Function:CSK_FileManager.deleteFolder"><span class="breadcrumb">CSK_FileManager.</span><span class="api-function">deleteFolder()</span></a></li>
 <li><a href="#API:Function:CSK_FileManager.fileUploadFinished"><span class="breadcrumb">CSK_FileManager.</span><span class="api-function">fileUploadFinished()</span></a></li>
+<li><a href="#API:Function:CSK_FileManager.getStatusModuleActive"><span class="breadcrumb">CSK_FileManager.</span><span class="api-function">getStatusModuleActive()</span></a></li>
 <li><a href="#API:Function:CSK_FileManager.loadParameters"><span class="breadcrumb">CSK_FileManager.</span><span class="api-function">loadParameters()</span></a></li>
 <li><a href="#API:Function:CSK_FileManager.pageCalled"><span class="breadcrumb">CSK_FileManager.</span><span class="api-function">pageCalled()</span></a></li>
 <li><a href="#API:Function:CSK_FileManager.selectFile"><span class="breadcrumb">CSK_FileManager.</span><span class="api-function">selectFile()</span></a></li>
@@ -645,6 +646,7 @@ h1,h2,h3,h4,h5,h6{color:#007cc1}
 <li><a href="#API:Function:CSK_FileManager.setLoadOnReboot"><span class="breadcrumb">CSK_FileManager.</span><span class="api-function">setLoadOnReboot()</span></a></li>
 <li><a href="#API:Function:CSK_FileManager.setParameterName"><span class="breadcrumb">CSK_FileManager.</span><span class="api-function">setParameterName()</span></a></li>
 <li><a href="#API:Function:CSK_FileManager.setPath"><span class="breadcrumb">CSK_FileManager.</span><span class="api-function">setPath()</span></a></li>
+<li><a href="#API:Function:CSK_FileManager.updateListOfFiles"><span class="breadcrumb">CSK_FileManager.</span><span class="api-function">updateListOfFiles()</span></a></li>
 </ul>
 </li>
 <li><a href="#_events">Events</a>
@@ -654,11 +656,14 @@ h1,h2,h3,h4,h5,h6{color:#007cc1}
 <li><a href="#API:Event:CSK_FileManager.OnNewStatusAvailableSources"><span class="breadcrumb">CSK_FileManager.</span><span class="api-event">OnNewStatusAvailableSources</span></a></li>
 <li><a href="#API:Event:CSK_FileManager.OnNewStatusCalloutText"><span class="breadcrumb">CSK_FileManager.</span><span class="api-event">OnNewStatusCalloutText</span></a></li>
 <li><a href="#API:Event:CSK_FileManager.OnNewStatusCalloutType"><span class="breadcrumb">CSK_FileManager.</span><span class="api-event">OnNewStatusCalloutType</span></a></li>
+<li><a href="#API:Event:CSK_FileManager.OnNewStatusCSKStyle"><span class="breadcrumb">CSK_FileManager.</span><span class="api-event">OnNewStatusCSKStyle</span></a></li>
 <li><a href="#API:Event:CSK_FileManager.OnNewStatusDiskInfo"><span class="breadcrumb">CSK_FileManager.</span><span class="api-event">OnNewStatusDiskInfo</span></a></li>
 <li><a href="#API:Event:CSK_FileManager.OnNewStatusDownloadFilename"><span class="breadcrumb">CSK_FileManager.</span><span class="api-event">OnNewStatusDownloadFilename</span></a></li>
 <li><a href="#API:Event:CSK_FileManager.OnNewStatusFileList"><span class="breadcrumb">CSK_FileManager.</span><span class="api-event">OnNewStatusFileList</span></a></li>
 <li><a href="#API:Event:CSK_FileManager.OnNewStatusFileToDownload"><span class="breadcrumb">CSK_FileManager.</span><span class="api-event">OnNewStatusFileToDownload</span></a></li>
 <li><a href="#API:Event:CSK_FileManager.OnNewStatusLoadParameterOnReboot"><span class="breadcrumb">CSK_FileManager.</span><span class="api-event">OnNewStatusLoadParameterOnReboot</span></a></li>
+<li><a href="#API:Event:CSK_FileManager.OnNewStatusModuleIsActive"><span class="breadcrumb">CSK_FileManager.</span><span class="api-event">OnNewStatusModuleIsActive</span></a></li>
+<li><a href="#API:Event:CSK_FileManager.OnNewStatusModuleVersion"><span class="breadcrumb">CSK_FileManager.</span><span class="api-event">OnNewStatusModuleVersion</span></a></li>
 <li><a href="#API:Event:CSK_FileManager.OnNewStatusPath"><span class="breadcrumb">CSK_FileManager.</span><span class="api-event">OnNewStatusPath</span></a></li>
 <li><a href="#API:Event:CSK_FileManager.OnNewStatusSelectedFile"><span class="breadcrumb">CSK_FileManager.</span><span class="api-event">OnNewStatusSelectedFile</span></a></li>
 <li><a href="#API:Event:CSK_FileManager.OnNewStatusSelectedSource"><span class="breadcrumb">CSK_FileManager.</span><span class="api-event">OnNewStatusSelectedSource</span></a></li>
@@ -674,7 +679,7 @@ h1,h2,h3,h4,h5,h6{color:#007cc1}
 </li>
 <li><a href="#API:Crown:CSK_Module_FileManager"><span class="api-crown">CSK_Module_FileManager</span></a>
 <ul class="sectlevel3">
-<li><a href="#_short_description_33">Short description</a></li>
+<li><a href="#_short_description_38">Short description</a></li>
 </ul>
 </li>
 </ul>
@@ -698,11 +703,11 @@ h1,h2,h3,h4,h5,h6{color:#007cc1}
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Version</p></th>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1.0.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.1.0</p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Date</p></th>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2023-10-19</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2024-07-31</p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Author</p></th>
@@ -758,6 +763,9 @@ Please check the UI of this module.<br></p>
 <p><a href="#API:Function:CSK_FileManager.fileUploadFinished">fileUploadFinished()</a></p>
 </li>
 <li>
+<p><a href="#API:Function:CSK_FileManager.getStatusModuleActive">getStatusModuleActive()</a></p>
+</li>
+<li>
 <p><a href="#API:Function:CSK_FileManager.loadParameters">loadParameters()</a></p>
 </li>
 <li>
@@ -782,6 +790,9 @@ Please check the UI of this module.<br></p>
 <p><a href="#API:Function:CSK_FileManager.setPath">setPath()</a></p>
 </li>
 <li>
+<p><a href="#API:Function:CSK_FileManager.updateListOfFiles">updateListOfFiles()</a></p>
+</li>
+<li>
 <p><a href="#API:Event:CSK_FileManager.OnDataLoadedOnReboot">OnDataLoadedOnReboot</a></p>
 </li>
 <li>
@@ -797,6 +808,9 @@ Please check the UI of this module.<br></p>
 <p><a href="#API:Event:CSK_FileManager.OnNewStatusCalloutType">OnNewStatusCalloutType</a></p>
 </li>
 <li>
+<p><a href="#API:Event:CSK_FileManager.OnNewStatusCSKStyle">OnNewStatusCSKStyle</a></p>
+</li>
+<li>
 <p><a href="#API:Event:CSK_FileManager.OnNewStatusDiskInfo">OnNewStatusDiskInfo</a></p>
 </li>
 <li>
@@ -810,6 +824,12 @@ Please check the UI of this module.<br></p>
 </li>
 <li>
 <p><a href="#API:Event:CSK_FileManager.OnNewStatusLoadParameterOnReboot">OnNewStatusLoadParameterOnReboot</a></p>
+</li>
+<li>
+<p><a href="#API:Event:CSK_FileManager.OnNewStatusModuleIsActive">OnNewStatusModuleIsActive</a></p>
+</li>
+<li>
+<p><a href="#API:Event:CSK_FileManager.OnNewStatusModuleVersion">OnNewStatusModuleVersion</a></p>
 </li>
 <li>
 <p><a href="#API:Event:CSK_FileManager.OnNewStatusPath">OnNewStatusPath</a></p>
@@ -939,18 +959,89 @@ Please check the UI of this module.<br></p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="API:Function:CSK_FileManager.loadParameters"><span class="breadcrumb">CSK_FileManager.</span><span class="api-function">loadParameters()</span></h5>
+<h5 id="API:Function:CSK_FileManager.getStatusModuleActive"><span class="breadcrumb">CSK_FileManager.</span><span class="api-function">getStatusModuleActive()</span></h5>
 <div class="sect5">
 <h6 id="_short_description_6">Short description</h6>
 <div class="paragraph">
-<p>Load parameters for this module from the CSK_PersistentData module if possible and use them.</p>
+<p>Function to get status if module is active.</p>
 </div>
+</div>
+<div class="sect5">
+<h6 id="_return_values">Return values</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Status</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect5">
 <h6 id="_sample_auto_generated_5">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="lua">CSK_FileManager.loadParameters()</code></pre>
+<pre class="CodeRay highlight"><code data-lang="lua">status = CSK_FileManager.getStatusModuleActive()</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Function:CSK_FileManager.loadParameters"><span class="breadcrumb">CSK_FileManager.</span><span class="api-function">loadParameters()</span></h5>
+<div class="sect5">
+<h6 id="_short_description_7">Short description</h6>
+<div class="paragraph">
+<p>Load parameters for this module from the CSK_PersistentData module if possible and use them.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_return_values_2">Return values</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">success</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Success to load parameters.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_6">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">success = CSK_FileManager.loadParameters()</code></pre>
 </div>
 </div>
 </div>
@@ -958,13 +1049,13 @@ Please check the UI of this module.<br></p>
 <div class="sect4">
 <h5 id="API:Function:CSK_FileManager.pageCalled"><span class="breadcrumb">CSK_FileManager.</span><span class="api-function">pageCalled()</span></h5>
 <div class="sect5">
-<h6 id="_short_description_7">Short description</h6>
+<h6 id="_short_description_8">Short description</h6>
 <div class="paragraph">
 <p>Function to register "OnResume" of the module UI (only as helper function).</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_return_values">Return values</h6>
+<h6 id="_return_values_3">Return values</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -991,7 +1082,7 @@ Please check the UI of this module.<br></p>
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_6">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_7">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua">empty = CSK_FileManager.pageCalled()</code></pre>
@@ -1002,7 +1093,7 @@ Please check the UI of this module.<br></p>
 <div class="sect4">
 <h5 id="API:Function:CSK_FileManager.selectFile"><span class="breadcrumb">CSK_FileManager.</span><span class="api-function">selectFile()</span></h5>
 <div class="sect5">
-<h6 id="_short_description_8">Short description</h6>
+<h6 id="_short_description_9">Short description</h6>
 <div class="paragraph">
 <p>Function to select file out of filelist.</p>
 </div>
@@ -1035,7 +1126,7 @@ Please check the UI of this module.<br></p>
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_7">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_8">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua">CSK_FileManager.selectFile(filename)</code></pre>
@@ -1046,7 +1137,7 @@ Please check the UI of this module.<br></p>
 <div class="sect4">
 <h5 id="API:Function:CSK_FileManager.selectFileSource"><span class="breadcrumb">CSK_FileManager.</span><span class="api-function">selectFileSource()</span></h5>
 <div class="sect5">
-<h6 id="_short_description_9">Short description</h6>
+<h6 id="_short_description_10">Short description</h6>
 <div class="paragraph">
 <p>Function to select source of files.</p>
 </div>
@@ -1079,7 +1170,7 @@ Please check the UI of this module.<br></p>
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_8">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_9">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua">CSK_FileManager.selectFileSource(source)</code></pre>
@@ -1090,13 +1181,13 @@ Please check the UI of this module.<br></p>
 <div class="sect4">
 <h5 id="API:Function:CSK_FileManager.sendParameters"><span class="breadcrumb">CSK_FileManager.</span><span class="api-function">sendParameters()</span></h5>
 <div class="sect5">
-<h6 id="_short_description_10">Short description</h6>
+<h6 id="_short_description_11">Short description</h6>
 <div class="paragraph">
 <p>Send parameters to CSK_PersistentData module if possible to save them.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_9">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_10">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua">CSK_FileManager.sendParameters()</code></pre>
@@ -1107,7 +1198,7 @@ Please check the UI of this module.<br></p>
 <div class="sect4">
 <h5 id="API:Function:CSK_FileManager.setLoadOnReboot"><span class="breadcrumb">CSK_FileManager.</span><span class="api-function">setLoadOnReboot()</span></h5>
 <div class="sect5">
-<h6 id="_short_description_11">Short description</h6>
+<h6 id="_short_description_12">Short description</h6>
 <div class="paragraph">
 <p>Configure if this module should load its saved parameters at app/device boot up.</p>
 </div>
@@ -1140,7 +1231,7 @@ Please check the UI of this module.<br></p>
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_10">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_11">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua">CSK_FileManager.setLoadOnReboot(status)</code></pre>
@@ -1151,7 +1242,7 @@ Please check the UI of this module.<br></p>
 <div class="sect4">
 <h5 id="API:Function:CSK_FileManager.setParameterName"><span class="breadcrumb">CSK_FileManager.</span><span class="api-function">setParameterName()</span></h5>
 <div class="sect5">
-<h6 id="_short_description_12">Short description</h6>
+<h6 id="_short_description_13">Short description</h6>
 <div class="paragraph">
 <p>Function to set the name of the parameters if saved/loaded via the CSK_PersistentData module.</p>
 </div>
@@ -1184,7 +1275,7 @@ Please check the UI of this module.<br></p>
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_11">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_12">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua">CSK_FileManager.setParameterName(name)</code></pre>
@@ -1195,7 +1286,7 @@ Please check the UI of this module.<br></p>
 <div class="sect4">
 <h5 id="API:Function:CSK_FileManager.setPath"><span class="breadcrumb">CSK_FileManager.</span><span class="api-function">setPath()</span></h5>
 <div class="sect5">
-<h6 id="_short_description_13">Short description</h6>
+<h6 id="_short_description_14">Short description</h6>
 <div class="paragraph">
 <p>Function to set path to e.g. uploaded files, create folder.</p>
 </div>
@@ -1228,10 +1319,27 @@ Please check the UI of this module.<br></p>
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_12">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_13">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua">CSK_FileManager.setPath(path)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Function:CSK_FileManager.updateListOfFiles"><span class="breadcrumb">CSK_FileManager.</span><span class="api-function">updateListOfFiles()</span></h5>
+<div class="sect5">
+<h6 id="_short_description_15">Short description</h6>
+<div class="paragraph">
+<p>Function to update list of files.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_14">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">CSK_FileManager.updateListOfFiles()</code></pre>
 </div>
 </div>
 </div>
@@ -1242,13 +1350,13 @@ Please check the UI of this module.<br></p>
 <div class="sect4">
 <h5 id="API:Event:CSK_FileManager.OnDataLoadedOnReboot"><span class="breadcrumb">CSK_FileManager.</span><span class="api-event">OnDataLoadedOnReboot</span></h5>
 <div class="sect5">
-<h6 id="_short_description_14">Short description</h6>
+<h6 id="_short_description_16">Short description</h6>
 <div class="paragraph">
 <p>Event to call if module tried to load parameters and should be ready.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_13">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_15">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnDataLoadedOnReboot</span>()
@@ -1263,7 +1371,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div class="sect4">
 <h5 id="API:Event:CSK_FileManager.OnNewParameterName"><span class="breadcrumb">CSK_FileManager.</span><span class="api-event">OnNewParameterName</span></h5>
 <div class="sect5">
-<h6 id="_short_description_15">Short description</h6>
+<h6 id="_short_description_17">Short description</h6>
 <div class="paragraph">
 <p>Notify name of persistent data parameter.</p>
 </div>
@@ -1296,7 +1404,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_14">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_16">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewParameterName</span>(name)
@@ -1311,7 +1419,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div class="sect4">
 <h5 id="API:Event:CSK_FileManager.OnNewStatusAvailableSources"><span class="breadcrumb">CSK_FileManager.</span><span class="api-event">OnNewStatusAvailableSources</span></h5>
 <div class="sect5">
-<h6 id="_short_description_16">Short description</h6>
+<h6 id="_short_description_18">Short description</h6>
 <div class="paragraph">
 <p>Notify available file sources.</p>
 </div>
@@ -1338,13 +1446,13 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <td class="tableblock halign-left valign-top"><p class="tableblock">sources</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Source</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of sources.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_15">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_17">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusAvailableSources</span>(sources)
@@ -1359,7 +1467,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div class="sect4">
 <h5 id="API:Event:CSK_FileManager.OnNewStatusCalloutText"><span class="breadcrumb">CSK_FileManager.</span><span class="api-event">OnNewStatusCalloutText</span></h5>
 <div class="sect5">
-<h6 id="_short_description_17">Short description</h6>
+<h6 id="_short_description_19">Short description</h6>
 <div class="paragraph">
 <p>Notify text for UI callout.</p>
 </div>
@@ -1392,7 +1500,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_16">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_18">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusCalloutText</span>(text)
@@ -1407,7 +1515,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div class="sect4">
 <h5 id="API:Event:CSK_FileManager.OnNewStatusCalloutType"><span class="breadcrumb">CSK_FileManager.</span><span class="api-event">OnNewStatusCalloutType</span></h5>
 <div class="sect5">
-<h6 id="_short_description_18">Short description</h6>
+<h6 id="_short_description_20">Short description</h6>
 <div class="paragraph">
 <p>Notify type of UI callout.</p>
 </div>
@@ -1440,7 +1548,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_17">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_19">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusCalloutType</span>(<span class="predefined">type</span>)
@@ -1453,15 +1561,63 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </div>
 </div>
 <div class="sect4">
+<h5 id="API:Event:CSK_FileManager.OnNewStatusCSKStyle"><span class="breadcrumb">CSK_FileManager.</span><span class="api-event">OnNewStatusCSKStyle</span></h5>
+<div class="sect5">
+<h6 id="_short_description_21">Short description</h6>
+<div class="paragraph">
+<p>Notify UI style to use for CSK modules.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_5">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">theme</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UI style</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_20">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusCSKStyle</span>(theme)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FileManager.OnNewStatusCSKStyle</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusCSKStyle</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
 <h5 id="API:Event:CSK_FileManager.OnNewStatusDiskInfo"><span class="breadcrumb">CSK_FileManager.</span><span class="api-event">OnNewStatusDiskInfo</span></h5>
 <div class="sect5">
-<h6 id="_short_description_19">Short description</h6>
+<h6 id="_short_description_22">Short description</h6>
 <div class="paragraph">
 <p>Notify free / used space of the selected file source.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_callback_arguments_5">Callback arguments</h6>
+<h6 id="_callback_arguments_6">Callback arguments</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -1488,7 +1644,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_18">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_21">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusDiskInfo</span>(info)
@@ -1503,253 +1659,13 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div class="sect4">
 <h5 id="API:Event:CSK_FileManager.OnNewStatusDownloadFilename"><span class="breadcrumb">CSK_FileManager.</span><span class="api-event">OnNewStatusDownloadFilename</span></h5>
 <div class="sect5">
-<h6 id="_short_description_20">Short description</h6>
+<h6 id="_short_description_23">Short description</h6>
 <div class="paragraph">
 <p>Notify name for file to download.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_callback_arguments_6">Callback arguments</h6>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 12.5%;">
-<col style="width: 37.5%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Multiplicity</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">filename</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Filename</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_sample_auto_generated_19">Sample (auto-generated)</h6>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusDownloadFilename</span>(filename)
-  <span class="comment">-- Do something</span>
-<span class="keyword">end</span>
-
-Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FileManager.OnNewStatusDownloadFilename</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusDownloadFilename</span><span class="delimiter">&quot;</span></span>)</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="API:Event:CSK_FileManager.OnNewStatusFileList"><span class="breadcrumb">CSK_FileManager.</span><span class="api-event">OnNewStatusFileList</span></h5>
-<div class="sect5">
-<h6 id="_short_description_21">Short description</h6>
-<div class="paragraph">
-<p>Notify list of available files.</p>
-</div>
-</div>
-<div class="sect5">
 <h6 id="_callback_arguments_7">Callback arguments</h6>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 12.5%;">
-<col style="width: 37.5%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Multiplicity</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">list</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">List of files.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_sample_auto_generated_20">Sample (auto-generated)</h6>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusFileList</span>(list)
-  <span class="comment">-- Do something</span>
-<span class="keyword">end</span>
-
-Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FileManager.OnNewStatusFileList</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusFileList</span><span class="delimiter">&quot;</span></span>)</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="API:Event:CSK_FileManager.OnNewStatusFileToDownload"><span class="breadcrumb">CSK_FileManager.</span><span class="api-event">OnNewStatusFileToDownload</span></h5>
-<div class="sect5">
-<h6 id="_short_description_22">Short description</h6>
-<div class="paragraph">
-<p>Notify full path to file to download.</p>
-</div>
-</div>
-<div class="sect5">
-<h6 id="_callback_arguments_8">Callback arguments</h6>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 12.5%;">
-<col style="width: 37.5%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Multiplicity</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">path</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Path</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_sample_auto_generated_21">Sample (auto-generated)</h6>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusFileToDownload</span>(path)
-  <span class="comment">-- Do something</span>
-<span class="keyword">end</span>
-
-Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FileManager.OnNewStatusFileToDownload</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusFileToDownload</span><span class="delimiter">&quot;</span></span>)</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="API:Event:CSK_FileManager.OnNewStatusLoadParameterOnReboot"><span class="breadcrumb">CSK_FileManager.</span><span class="api-event">OnNewStatusLoadParameterOnReboot</span></h5>
-<div class="sect5">
-<h6 id="_short_description_23">Short description</h6>
-<div class="paragraph">
-<p>Notify status if parameters should be loaded on app/device boot up.</p>
-</div>
-</div>
-<div class="sect5">
-<h6 id="_callback_arguments_9">Callback arguments</h6>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 12.5%;">
-<col style="width: 37.5%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Multiplicity</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Status</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_sample_auto_generated_22">Sample (auto-generated)</h6>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusLoadParameterOnReboot</span>(status)
-  <span class="comment">-- Do something</span>
-<span class="keyword">end</span>
-
-Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FileManager.OnNewStatusLoadParameterOnReboot</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusLoadParameterOnReboot</span><span class="delimiter">&quot;</span></span>)</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="API:Event:CSK_FileManager.OnNewStatusPath"><span class="breadcrumb">CSK_FileManager.</span><span class="api-event">OnNewStatusPath</span></h5>
-<div class="sect5">
-<h6 id="_short_description_24">Short description</h6>
-<div class="paragraph">
-<p>Notify path to e.g. store uploaded files, create new / remove folder.</p>
-</div>
-</div>
-<div class="sect5">
-<h6 id="_callback_arguments_10">Callback arguments</h6>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 12.5%;">
-<col style="width: 37.5%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Multiplicity</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">path</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Path</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_sample_auto_generated_23">Sample (auto-generated)</h6>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusPath</span>(path)
-  <span class="comment">-- Do something</span>
-<span class="keyword">end</span>
-
-Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FileManager.OnNewStatusPath</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusPath</span><span class="delimiter">&quot;</span></span>)</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="API:Event:CSK_FileManager.OnNewStatusSelectedFile"><span class="breadcrumb">CSK_FileManager.</span><span class="api-event">OnNewStatusSelectedFile</span></h5>
-<div class="sect5">
-<h6 id="_short_description_25">Short description</h6>
-<div class="paragraph">
-<p>Notify name of file selected within filelist.</p>
-</div>
-</div>
-<div class="sect5">
-<h6 id="_callback_arguments_11">Callback arguments</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -1776,28 +1692,28 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_24">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_22">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusSelectedFile</span>(filename)
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusDownloadFilename</span>(filename)
   <span class="comment">-- Do something</span>
 <span class="keyword">end</span>
 
-Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FileManager.OnNewStatusSelectedFile</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusSelectedFile</span><span class="delimiter">&quot;</span></span>)</code></pre>
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FileManager.OnNewStatusDownloadFilename</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusDownloadFilename</span><span class="delimiter">&quot;</span></span>)</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect4">
-<h5 id="API:Event:CSK_FileManager.OnNewStatusSelectedSource"><span class="breadcrumb">CSK_FileManager.</span><span class="api-event">OnNewStatusSelectedSource</span></h5>
+<h5 id="API:Event:CSK_FileManager.OnNewStatusFileList"><span class="breadcrumb">CSK_FileManager.</span><span class="api-event">OnNewStatusFileList</span></h5>
 <div class="sect5">
-<h6 id="_short_description_26">Short description</h6>
+<h6 id="_short_description_24">Short description</h6>
 <div class="paragraph">
-<p>Notify selected file source.</p>
+<p>Notify list of available files.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_callback_arguments_12">Callback arguments</h6>
+<h6 id="_callback_arguments_8">Callback arguments</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -1815,10 +1731,106 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">source</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">list</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Source</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of files.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_23">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusFileList</span>(list)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FileManager.OnNewStatusFileList</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusFileList</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_FileManager.OnNewStatusFileToDownload"><span class="breadcrumb">CSK_FileManager.</span><span class="api-event">OnNewStatusFileToDownload</span></h5>
+<div class="sect5">
+<h6 id="_short_description_25">Short description</h6>
+<div class="paragraph">
+<p>Notify full path to file to download.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_9">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">path</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Path</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_24">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusFileToDownload</span>(path)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FileManager.OnNewStatusFileToDownload</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusFileToDownload</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_FileManager.OnNewStatusLoadParameterOnReboot"><span class="breadcrumb">CSK_FileManager.</span><span class="api-event">OnNewStatusLoadParameterOnReboot</span></h5>
+<div class="sect5">
+<h6 id="_short_description_26">Short description</h6>
+<div class="paragraph">
+<p>Notify status if parameters should be loaded on app/device boot up.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_10">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Status</p></td>
 </tr>
 </tbody>
 </table>
@@ -1827,25 +1839,25 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <h6 id="_sample_auto_generated_25">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusSelectedSource</span>(source)
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusLoadParameterOnReboot</span>(status)
   <span class="comment">-- Do something</span>
 <span class="keyword">end</span>
 
-Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FileManager.OnNewStatusSelectedSource</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusSelectedSource</span><span class="delimiter">&quot;</span></span>)</code></pre>
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FileManager.OnNewStatusLoadParameterOnReboot</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusLoadParameterOnReboot</span><span class="delimiter">&quot;</span></span>)</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect4">
-<h5 id="API:Event:CSK_FileManager.OnNewStatusShowCallout"><span class="breadcrumb">CSK_FileManager.</span><span class="api-event">OnNewStatusShowCallout</span></h5>
+<h5 id="API:Event:CSK_FileManager.OnNewStatusModuleIsActive"><span class="breadcrumb">CSK_FileManager.</span><span class="api-event">OnNewStatusModuleIsActive</span></h5>
 <div class="sect5">
 <h6 id="_short_description_27">Short description</h6>
 <div class="paragraph">
-<p>Notify status if UI callout should be shown.</p>
+<p>Notify if module can be used on device.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_callback_arguments_13">Callback arguments</h6>
+<h6 id="_callback_arguments_11">Callback arguments</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -1875,21 +1887,117 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <h6 id="_sample_auto_generated_26">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusShowCallout</span>(status)
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusModuleIsActive</span>(status)
   <span class="comment">-- Do something</span>
 <span class="keyword">end</span>
 
-Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FileManager.OnNewStatusShowCallout</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusShowCallout</span><span class="delimiter">&quot;</span></span>)</code></pre>
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FileManager.OnNewStatusModuleIsActive</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusModuleIsActive</span><span class="delimiter">&quot;</span></span>)</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect4">
-<h5 id="API:Event:CSK_FileManager.OnPersistentDataModuleAvailable"><span class="breadcrumb">CSK_FileManager.</span><span class="api-event">OnPersistentDataModuleAvailable</span></h5>
+<h5 id="API:Event:CSK_FileManager.OnNewStatusModuleVersion"><span class="breadcrumb">CSK_FileManager.</span><span class="api-event">OnNewStatusModuleVersion</span></h5>
 <div class="sect5">
 <h6 id="_short_description_28">Short description</h6>
 <div class="paragraph">
-<p>Notify status if features of CSK_PersistendData module are available.</p>
+<p>Notify version of module.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_12">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">version</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Version</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_27">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusModuleVersion</span>(version)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FileManager.OnNewStatusModuleVersion</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusModuleVersion</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_FileManager.OnNewStatusPath"><span class="breadcrumb">CSK_FileManager.</span><span class="api-event">OnNewStatusPath</span></h5>
+<div class="sect5">
+<h6 id="_short_description_29">Short description</h6>
+<div class="paragraph">
+<p>Notify path to e.g. store uploaded files, create new / remove folder.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_13">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">path</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Path</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_28">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusPath</span>(path)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FileManager.OnNewStatusPath</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusPath</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_FileManager.OnNewStatusSelectedFile"><span class="breadcrumb">CSK_FileManager.</span><span class="api-event">OnNewStatusSelectedFile</span></h5>
+<div class="sect5">
+<h6 id="_short_description_30">Short description</h6>
+<div class="paragraph">
+<p>Notify name of file selected within list of files.</p>
 </div>
 </div>
 <div class="sect5">
@@ -1911,33 +2019,33 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">filename</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Status</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of file.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_27">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_29">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnPersistentDataModuleAvailable</span>(status)
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusSelectedFile</span>(filename)
   <span class="comment">-- Do something</span>
 <span class="keyword">end</span>
 
-Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FileManager.OnPersistentDataModuleAvailable</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnPersistentDataModuleAvailable</span><span class="delimiter">&quot;</span></span>)</code></pre>
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FileManager.OnNewStatusSelectedFile</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusSelectedFile</span><span class="delimiter">&quot;</span></span>)</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect4">
-<h5 id="API:Event:CSK_FileManager.OnUserLevelAdminActive"><span class="breadcrumb">CSK_FileManager.</span><span class="api-event">OnUserLevelAdminActive</span></h5>
+<h5 id="API:Event:CSK_FileManager.OnNewStatusSelectedSource"><span class="breadcrumb">CSK_FileManager.</span><span class="api-event">OnNewStatusSelectedSource</span></h5>
 <div class="sect5">
-<h6 id="_short_description_29">Short description</h6>
+<h6 id="_short_description_31">Short description</h6>
 <div class="paragraph">
-<p>Status of Admin userlevel. Used internally in combination with the CSK_UserManagement module if available.</p>
+<p>Notify selected file source.</p>
 </div>
 </div>
 <div class="sect5">
@@ -1959,33 +2067,33 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">source</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Status</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Source</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_28">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_30">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnUserLevelAdminActive</span>(status)
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusSelectedSource</span>(source)
   <span class="comment">-- Do something</span>
 <span class="keyword">end</span>
 
-Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FileManager.OnUserLevelAdminActive</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnUserLevelAdminActive</span><span class="delimiter">&quot;</span></span>)</code></pre>
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FileManager.OnNewStatusSelectedSource</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusSelectedSource</span><span class="delimiter">&quot;</span></span>)</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect4">
-<h5 id="API:Event:CSK_FileManager.OnUserLevelMaintenanceActive"><span class="breadcrumb">CSK_FileManager.</span><span class="api-event">OnUserLevelMaintenanceActive</span></h5>
+<h5 id="API:Event:CSK_FileManager.OnNewStatusShowCallout"><span class="breadcrumb">CSK_FileManager.</span><span class="api-event">OnNewStatusShowCallout</span></h5>
 <div class="sect5">
-<h6 id="_short_description_30">Short description</h6>
+<h6 id="_short_description_32">Short description</h6>
 <div class="paragraph">
-<p>Status of Maintenance userlevel. Used internally in combination with the CSK_UserManagement module if available.</p>
+<p>Notify status if UI callout should be shown.</p>
 </div>
 </div>
 <div class="sect5">
@@ -2016,24 +2124,24 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_29">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_31">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnUserLevelMaintenanceActive</span>(status)
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusShowCallout</span>(status)
   <span class="comment">-- Do something</span>
 <span class="keyword">end</span>
 
-Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FileManager.OnUserLevelMaintenanceActive</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnUserLevelMaintenanceActive</span><span class="delimiter">&quot;</span></span>)</code></pre>
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FileManager.OnNewStatusShowCallout</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusShowCallout</span><span class="delimiter">&quot;</span></span>)</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect4">
-<h5 id="API:Event:CSK_FileManager.OnUserLevelOperatorActive"><span class="breadcrumb">CSK_FileManager.</span><span class="api-event">OnUserLevelOperatorActive</span></h5>
+<h5 id="API:Event:CSK_FileManager.OnPersistentDataModuleAvailable"><span class="breadcrumb">CSK_FileManager.</span><span class="api-event">OnPersistentDataModuleAvailable</span></h5>
 <div class="sect5">
-<h6 id="_short_description_31">Short description</h6>
+<h6 id="_short_description_33">Short description</h6>
 <div class="paragraph">
-<p>Status of Operator userlevel. Used internally in combination with the CSK_UserManagement module if available.</p>
+<p>Notify status if features of CSK_PersistendData module are available.</p>
 </div>
 </div>
 <div class="sect5">
@@ -2064,24 +2172,24 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_30">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_32">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnUserLevelOperatorActive</span>(status)
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnPersistentDataModuleAvailable</span>(status)
   <span class="comment">-- Do something</span>
 <span class="keyword">end</span>
 
-Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FileManager.OnUserLevelOperatorActive</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnUserLevelOperatorActive</span><span class="delimiter">&quot;</span></span>)</code></pre>
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FileManager.OnPersistentDataModuleAvailable</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnPersistentDataModuleAvailable</span><span class="delimiter">&quot;</span></span>)</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect4">
-<h5 id="API:Event:CSK_FileManager.OnUserLevelServiceActive"><span class="breadcrumb">CSK_FileManager.</span><span class="api-event">OnUserLevelServiceActive</span></h5>
+<h5 id="API:Event:CSK_FileManager.OnUserLevelAdminActive"><span class="breadcrumb">CSK_FileManager.</span><span class="api-event">OnUserLevelAdminActive</span></h5>
 <div class="sect5">
-<h6 id="_short_description_32">Short description</h6>
+<h6 id="_short_description_34">Short description</h6>
 <div class="paragraph">
-<p>Status of Service userlevel. Used internally in combination with the CSK_UserManagement module if available.</p>
+<p>Status of Admin userlevel. Used internally in combination with the CSK_UserManagement module if available.</p>
 </div>
 </div>
 <div class="sect5">
@@ -2112,7 +2220,151 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_31">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_33">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnUserLevelAdminActive</span>(status)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FileManager.OnUserLevelAdminActive</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnUserLevelAdminActive</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_FileManager.OnUserLevelMaintenanceActive"><span class="breadcrumb">CSK_FileManager.</span><span class="api-event">OnUserLevelMaintenanceActive</span></h5>
+<div class="sect5">
+<h6 id="_short_description_35">Short description</h6>
+<div class="paragraph">
+<p>Status of Maintenance userlevel. Used internally in combination with the CSK_UserManagement module if available.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_19">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Status</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_34">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnUserLevelMaintenanceActive</span>(status)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FileManager.OnUserLevelMaintenanceActive</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnUserLevelMaintenanceActive</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_FileManager.OnUserLevelOperatorActive"><span class="breadcrumb">CSK_FileManager.</span><span class="api-event">OnUserLevelOperatorActive</span></h5>
+<div class="sect5">
+<h6 id="_short_description_36">Short description</h6>
+<div class="paragraph">
+<p>Status of Operator userlevel. Used internally in combination with the CSK_UserManagement module if available.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_20">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Status</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_35">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnUserLevelOperatorActive</span>(status)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_FileManager.OnUserLevelOperatorActive</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnUserLevelOperatorActive</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_FileManager.OnUserLevelServiceActive"><span class="breadcrumb">CSK_FileManager.</span><span class="api-event">OnUserLevelServiceActive</span></h5>
+<div class="sect5">
+<h6 id="_short_description_37">Short description</h6>
+<div class="paragraph">
+<p>Status of Service userlevel. Used internally in combination with the CSK_UserManagement module if available.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_21">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Status</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_36">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnUserLevelServiceActive</span>(status)
@@ -2129,7 +2381,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div class="sect2">
 <h3 id="API:Crown:CSK_Module_FileManager"><span class="api-crown">CSK_Module_FileManager</span></h3>
 <div class="sect3">
-<h4 id="_short_description_33">Short description</h4>
+<h4 id="_short_description_38">Short description</h4>
 <div class="paragraph">
 <p>This is an automatically generated CROWN (description not necessary).</p>
 </div>
@@ -2140,8 +2392,8 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 1.0.0<br>
-Last updated 2023-10-19 10:59:34 +0200
+Version 1.1.0<br>
+Last updated 2024-07-31 16:12:56 +0200
 </div>
 </div>
 <script type="text/javascript">

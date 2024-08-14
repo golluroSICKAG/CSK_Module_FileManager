@@ -1,164 +1,146 @@
---[[
-++============================================================================++
-||                                                                            ||
-||  Inside of this script, you will find helper functions.                    ||
-||                                                                            ||
-++============================================================================++
-]]--
 ---@diagnostic disable: undefined-global, redundant-parameter, missing-parameter
+--*****************************************************************
+-- Inside of this script, you will find helper functions
+--*****************************************************************
 
---[[ ********************************************************************** ]]--
---[[ ************************ Start of Global Scope *********************** ]]--
---[[ ********************************************************************** ]]--
+--**************************************************************************
+--**********************Start Global Scope *********************************
+--**************************************************************************
 
 local funcs = {}
---- Provide access to standard JSON functions.
-funcs.json = require( "System/FileManager/helper/Json" )
+-- Providing standard JSON functions
+funcs.json = require('System/FileManager/helper/Json')
 
---[[ ********************************************************************** ]]--
---[[ ************************* End of Global Scope ************************ ]]--
---[[ ********************************************************************** ]]--
+--**************************************************************************
+--********************** End Global Scope **********************************
+--**************************************************************************
+--**********************Start Function Scope *******************************
+--**************************************************************************
 
---[[ :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: ]]--
---[[ :::::::::::::::::: Start of Function and Event Scope ::::::::::::::::: ]]--
---[[ :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: ]]--
-
---[[ ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ ]]--
---- Create a string containing a list with a sequence of numbers.
----@param inSize int Size of the list
----@return string outString List of numbers
-local function createStringListBySize(inSize)
-  local outString = "["
-  if inSize >= 1 then
-    outString = outString .. '"' .. tostring(1) .. '"'
+--- Function to create a list with numbers
+---@param size int Size of the list
+---@return string list List of numbers
+local function createStringListBySize(size)
+  local list = "["
+  if size >= 1 then
+    list = list .. '"' .. tostring(1) .. '"'
   end
-  if inSize >= 2 then
-    for i = 2, inSize, 1 do
-      outString = outString .. ", " .. '"' .. tostring(i) .. '"'
+  if size >= 2 then
+    for i=2, size do
+      list = list .. ', ' .. '"' .. tostring(i) .. '"'
     end
   end
-  outString = outString .. "]"
-
-  return outString
+  list = list .. "]"
+  return list
 end
 funcs.createStringListBySize = createStringListBySize
 
---[[ ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ ]]--
---- Convert a table into a 'Container' object.
----@param inContent auto[] Lua table to convert to 'Container'
----@return Container outContainer Created 'Container'
-local function convertTable2Container(inContent)
-  local outContainer = Container.create()
-  for key, value in pairs(inContent) do
-    if type(value) == "table" then
-      outContainer:add(key, convertTable2Container(value), nil)
+--- Function to convert a table into a Container object
+---@param content auto[] Lua Table to convert to Container
+---@return Container cont Created Container
+local function convertTable2Container(content)
+  local cont = Container.create()
+  for key, value in pairs(content) do
+    if type(value) == 'table' then
+      cont:add(key, convertTable2Container(value), nil)
     else
-      outContainer:add(key, value, nil)
+      cont:add(key, value, nil)
     end
   end
-
-  return outContainer
+  return cont
 end
 funcs.convertTable2Container = convertTable2Container
 
---[[ ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ ]]--
---- Convert a 'Container' object into a table.
----@param inContainer Container 'Container' to convert to Lua table
----@return auto[] outData Created Lua table
-local function convertContainer2Table(inContainer)
-  local outData = {}
-  local containerList = Container.list(inContainer)
+--- Function to convert a Container into a table
+---@param cont Container Container to convert to Lua table
+---@return auto[] data Created Lua table
+local function convertContainer2Table(cont)
+  local data = {}
+  local containerList = Container.list(cont)
   local containerCheck = false
   if tonumber(containerList[1]) then
     containerCheck = true
   end
-  for i = 1, #containerList, 1 do
+  for i=1, #containerList do
+
     local subContainer
 
-    if containerCheck == true then
-      subContainer = Container.get(inContainer, tostring(i) .. ".00")
+    if containerCheck then
+      subContainer = Container.get(cont, tostring(i) .. '.00')
     else
-      subContainer = Container.get(inContainer, containerList[i])
+      subContainer = Container.get(cont, containerList[i])
     end
-    if type(subContainer) == "userdata" then
+    if type(subContainer) == 'userdata' then
       if Object.getType(subContainer) == "Container" then
 
-        if containerCheck == true then
-          table.insert(outData, convertContainer2Table(subContainer))
+        if containerCheck then
+          table.insert(data, convertContainer2Table(subContainer))
         else
-          outData[containerList[i]] = convertContainer2Table(subContainer)
+          data[containerList[i]] = convertContainer2Table(subContainer)
         end
 
       else
-        if containerCheck == true then
-          table.insert(outData, subContainer)
+        if containerCheck then
+          table.insert(data, subContainer)
         else
-          outData[containerList[i]] = subContainer
+          data[containerList[i]] = subContainer
         end
       end
     else
-      if containerCheck == true then
-        table.insert(outData, subContainer)
+      if containerCheck then
+        table.insert(data, subContainer)
       else
-        outData[containerList[i]] = subContainer
+        data[containerList[i]] = subContainer
       end
     end
   end
-
-  return outData
+  return data
 end
 funcs.convertContainer2Table = convertContainer2Table
 
---[[ ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ ]]--
---- Get a content list out of a table.
----@param inData string[] Table with data entries
----@return string sortedTable Sorted entries as string, internally separated by ','
-local function createContentList(inData)
+--- Function to get content list out of table
+---@param data string[] Table with data entries
+---@return string sortedTable Sorted entries as string, internally seperated by ','
+local function createContentList(data)
   local sortedTable = {}
-  for key, _ in pairs(inData) do
+  for key, _ in pairs(data) do
     table.insert(sortedTable, key)
   end
   table.sort(sortedTable)
-
-  return table.concat( sortedTable, "," )
+  return table.concat(sortedTable, ',')
 end
 funcs.createContentList = createContentList
 
---[[ ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ ]]--
---- Get a content list as a JSON string.
----@param inData string[] Table with data entries
+--- Function to get content list as JSON string
+---@param data string[] Table with data entries
 ---@return string sortedTable Sorted entries as JSON string
-local function createJsonList(inData)
+local function createJsonList(data)
   local sortedTable = {}
-  for key, _ in pairs(inData) do
+  for key, _ in pairs(data) do
     table.insert(sortedTable, key)
   end
   table.sort(sortedTable)
-
   return funcs.json.encode(sortedTable)
 end
 funcs.createJsonList = createJsonList
 
---[[ ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ ]]--
---- Create a string of all elements of a table.
----@param inData string[] Table with data entries
----@return string list List of data entries
-local function createStringListBySimpleTable(inData)
-  if inData ~= nil then
+--- Function to create a list from table
+---@param content string[] Table with data entries
+---@return string list String list
+local function createStringListBySimpleTable(content)
+  if content then
     local list = "["
-    if #inData >= 1 then
-      list = list .. '"' .. inData[1] .. '"'
+    if #content >= 1 then
+      list = list .. '"' .. content[1] .. '"'
     end
-    if #inData >= 2 then
-      for i=2, #inData, 1 do
-        list = list .. ', ' .. '"' .. inData[i] .. '"'
+    if #content >= 2 then
+      for i=2, #content do
+        list = list .. ', ' .. '"' .. content[i] .. '"'
       end
     end
     list = list .. "]"
-
     return list
   else
-
     return ''
   end
 end
@@ -166,6 +148,6 @@ funcs.createStringListBySimpleTable = createStringListBySimpleTable
 
 return funcs
 
---[[ :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: ]]--
---[[ ::::::::::::::::::: End of Function and Event Scope :::::::::::::::::: ]]--
---[[ :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: ]]--
+--**************************************************************************
+--**********************End Function Scope *********************************
+--**************************************************************************
