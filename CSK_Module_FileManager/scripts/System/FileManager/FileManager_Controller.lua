@@ -314,6 +314,8 @@ Script.serveFunction('CSK_FileManager.getStatusModuleActive', getStatusModuleAct
 -- Following function can be adapted for CSK_PersistentData module usage
 -- *****************************************************************
 
+-- No need for this features in this module till now ...
+--[[
 local function setParameterName(name)
   _G.logger:fine(nameOfModule .. ": Set parameter name: " .. tostring(name))
   fileManager_Model.parametersName = name
@@ -389,6 +391,7 @@ local function handleOnInitialDataLoaded()
   end
 end
 Script.register("CSK_PersistentData.OnInitialDataLoaded", handleOnInitialDataLoaded)
+]]
 
 -- *************************************************
 -- END of functions for CSK_PersistentData module usage

@@ -13,6 +13,7 @@ All notable changes to this project will be documented in this file.
 - 'loadParameters' returns its success
 - 'sendParameters' prepared to control if sent data should be saved directly by CSK_Module_PersistentData (but not used as there are no parameters available so far)
 - Added UI icon and browser tab information
+- Removed useless functions regarding PersistentData
 
 ### Bugfix
 - 'Disk usage' in UI showed free bytes and not used bytes
@@ -20,7 +21,7 @@ All notable changes to this project will be documented in this file.
 ## Release 1.0.0
 
 ### New features
-- Prepared for PersistentData features (not used so far)
+- Prepared for PersistentData features (not used so far and removed in version 1.1.0)
 
 ### Improvements
 - Requires userlevel "Service" to provide UI
