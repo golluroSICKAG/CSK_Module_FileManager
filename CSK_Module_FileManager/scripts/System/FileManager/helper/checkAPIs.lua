@@ -5,6 +5,7 @@
 
 local availableAPIs = {}
 
+-- Function to load all default APIs
 local function loadAPIs()
   CSK_FileManager = require 'API.CSK_FileManager'
 
@@ -27,6 +28,7 @@ local function loadAPIs()
   end
 end
 
+-- Function to load specific APIs
 local function loadSpecificAPIs()
   -- If you want to check for specific APIs/functions supported on the device the module is running, place relevant APIs here
   -- e.g.:

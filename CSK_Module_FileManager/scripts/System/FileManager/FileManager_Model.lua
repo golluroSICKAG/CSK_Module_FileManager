@@ -33,6 +33,9 @@ fileManager_Model.helperFuncs = require('System/FileManager/helper/funcs')
 
 -- Available source paths for files like '/public', '/ram', 'sdcard/0'
 fileManager_Model.availableSources = Engine.getEnumValues('MountedDrives')
+if not fileManager_Model.availableSources then
+  fileManager_Model.availableSources = {}
+end
 table.insert(fileManager_Model.availableSources, '/public')
 fileManager_Model.selectedFileSource = '/public' -- File source selected out of list
 
@@ -45,13 +48,23 @@ fileManager_Model.path = '/public' -- Target path for e.g. files to upload / cre
 fileManager_Model.freeBytes = File.getDiskFree(fileManager_Model.selectedFileSource) -- Free bytes on selected file source
 fileManager_Model.usedBytes = File.getDiskUsage(fileManager_Model.selectedFileSource) -- Used bytes on selected file source
 
+fileManager_Model.styleForUI = 'None' -- Optional parameter to set UI style
+fileManager_Model.version = Engine.getCurrentAppVersion() -- Version of module
+
 --**************************************************************************
 --********************** End Global Scope **********************************
 --**************************************************************************
 --**********************Start Function Scope *******************************
 --**************************************************************************
 
--- Function to get related divider and unit of a value
+--- Function to react on UI style change
+local function handleOnStyleChanged(theme)
+  fileManager_Model.styleForUI = theme
+  Script.notifyEvent("FileManager_OnNewStatusCSKStyle", fileManager_Model.styleForUI)
+end
+Script.register('CSK_PersistentData.OnNewStatusCSKStyle', handleOnStyleChanged)
+
+--- Function to get related divider and unit of a value
 ---@param memoryUsage int Amount of bytes
 local function getValueDividerAndUnit(memoryUsage)
   local memoryUsageDividerLog = math.log(memoryUsage,10)
@@ -81,7 +94,7 @@ local function updateFileSystemUsageInfo()
 
   local memoryDividerFree, memoryUnitFree  = getValueDividerAndUnit(fileManager_Model.freeBytes)
   local memoryDividerUsed, memoryUnitUsed  = getValueDividerAndUnit(fileManager_Model.usedBytes)
-  Script.notifyEvent("FileManager_OnNewStatusDiskInfo", "Disk free = " .. string.format("%.2f", (fileManager_Model.freeBytes/memoryDividerFree)) .. memoryUnitFree .. " / Disk usage = " .. string.format("%.2f", (fileManager_Model.freeBytes/memoryDividerFree)) .. memoryUnitUsed)
+  Script.notifyEvent("FileManager_OnNewStatusDiskInfo", "Disk free = " .. string.format("%.2f", (fileManager_Model.freeBytes/memoryDividerFree)) .. memoryUnitFree .. " / Disk usage = " .. string.format("%.2f", (fileManager_Model.usedBytes/memoryDividerUsed)) .. memoryUnitUsed)
 end
 fileManager_Model.updateFileSystemUsageInfo = updateFileSystemUsageInfo
 
@@ -102,6 +115,7 @@ local function updateListOfFiles()
   Script.notifyEvent("FileManager_OnNewStatusSelectedFile", fileManager_Model.selectedFile)
 end
 fileManager_Model.updateListOfFiles = updateListOfFiles
+Script.serveFunction('CSK_FileManager.updateListOfFiles', updateListOfFiles)
 updateListOfFiles()
 
 --*************************************************************************
