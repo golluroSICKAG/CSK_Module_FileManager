@@ -314,7 +314,7 @@ Script.serveFunction('CSK_FileManager.getStatusModuleActive', getStatusModuleAct
 -- Following function can be adapted for CSK_PersistentData module usage
 -- *****************************************************************
 
--- No need for this features in this module till now ...
+-- No need for these features in this module till now ...
 --[[
 local function setParameterName(name)
   _G.logger:fine(nameOfModule .. ": Set parameter name: " .. tostring(name))
