@@ -15,6 +15,7 @@ Tested on
 
 |Device|Firmware version|Module version|
 |--|--|--|
+|SIM300|V1.1.0|V1.1.1|
 |TDC-E|v2.0.0|v1.1.0|
 |SICK AppEngine|V1.7.0|V1.1.0|
 |SIM1012|V2.4.2|V1.1.0|
